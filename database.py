@@ -45,6 +45,24 @@ def selectall(table):
     rows = c.fetchall()
     return rows
 
+def select(statement, data):
+    if data == None:
+        c.execute(statement)
+    else:
+        c.execute(statement, data)
+    conn.commit()
+    rows = c.fetchall()
+    return rows
+
+def selectone(statement, data):
+    if data == None:
+        c.execute(statement)
+    else:
+        c.execute(statement, data)
+    conn.commit()
+    row = c.fetchone()
+    return row
+
 def log():
     return
     #get table name, time changed, old data, and new data

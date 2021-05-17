@@ -1,5 +1,6 @@
 import tkinter as tk
 import ingredients
+import restock
 import database as db
 import sqlite3
 
@@ -19,10 +20,10 @@ class menu(tk.Frame):
         self.ingredients_button.grid(row=1, column=0)
 
 
-        '''     self.restock_button = tk.Button(self, text="Restock", pady=10, command=lambda: (self.forget(), restock_menu()))
-                self.restock_button.grid()
+        self.restock_button = tk.Button(self, text="Restock", pady=10, command=lambda: (self.forget(), restock.display()))
+        self.restock_button.grid()
         
-                self.order_button = tk.Button(self, text="Orders", pady=10, command=lambda: (self.forget(), orders_menu()))
+        '''self.order_button = tk.Button(self, text="Orders", pady=10, command=lambda: (self.forget(), orders_menu()))
                 self.order_button.grid()
         
                 self.deliveries_button = tk.Button(self, text="Deliveries", pady=10, command=lambda: (self.forget(), deliveries_menu()))

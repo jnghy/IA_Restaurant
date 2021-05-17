@@ -7,7 +7,6 @@ class display(tk.Frame):
     def __init__(self):
         super().__init__()
         self.pack()
-        self.fields = ["ID", "Name","Stock Level","Minimum Stock","Unit Used"]
 
         self.title_frame = tk.Frame(self)
         self.title_frame.grid(row=0,columnspan=2, column=0)
@@ -25,12 +24,14 @@ class display(tk.Frame):
         self.fields_frame = tk.Frame(self)
         self.fields_frame.grid(row=1, column=0, sticky=tk.NW)
 
+        self.columns = ["Ingredient_id", "Name","Stock","Deficit Amount","Units"]
+
         self.field_selected = tk.StringVar()
-        self.fields_menu = tk.OptionMenu(self.fields_frame, self.field_selected , *self.fields)
+        self.fields_menu = tk.OptionMenu(self.fields_frame, self.field_selected , *self.columns)
         self.fields_menu.config(width=20)
         self.fields_menu.grid(row=0, column = 1)
 
-        self.field_selected.set("ID")
+        self.field_selected.set("ingredient_id")
 
         self.orders = ["Asc", 'Desc']
 
@@ -44,25 +45,25 @@ class display(tk.Frame):
         self.load_button = tk.Button(self.fields_frame, text="Load", command=lambda: (self.load_data()))
         self.load_button.grid(row = 0, column=0)
 
-        self.search_frame = tk.Frame(self)
+        '''self.search_frame = tk.Frame(self)
         self.search_frame.grid(row=1, column=1,  sticky=tk.NE)
 
-        self.search_button = tk.Button(self.search_frame, text="Search")
+        self.search_button = tk.Button(self.search_frame, text="Search", command=lambda: (self.search()))
         self.search_button.grid(row= 0, column=3)
 
         self.search_selected = tk.StringVar()
-        self.search_menu = tk.OptionMenu(self.search_frame, self.search_selected , *self.fields)
+        self.search_menu = tk.OptionMenu(self.search_frame, self.search_selected , *self.columns)
         self.search_menu.config(width=20)
         self.search_menu.grid(row=0, column = 0)
 
-        self.operators = ["=", "!=", "<", ">","between"]
+        self.operators = ["like", "not like", "<", ">"]
         self.operator_selected = tk.StringVar()
         self.search_menu = tk.OptionMenu(self.search_frame, self.operator_selected , *self.operators)
         self.search_menu.config(width=10)
         self.search_menu.grid(row=0, column = 1)
 
         self.search_entry = tk.Entry(self.search_frame, width=20,justify='left')
-        self.search_entry.grid(row=0, column=2)
+        self.search_entry.grid(row=0, column=2)'''
 
     def display_frame(self):
         self.left_frame = tk.Frame(self, width=310, height=150, padx=2, pady=10)
@@ -92,7 +93,10 @@ class display(tk.Frame):
         self.label_ingredient_unit.grid(row=4, column=0, sticky=tk.NW, padx=5)
         self.entry_ingredient_unit = tk.Entry(self.left_frame, width=35,justify='left')
         self.entry_ingredient_unit.grid(row=4, column=1)
+
     def table_frame(self):
+        self.fields = ["Id", "Name","Stock Amount","Deficit Amount","Units Used"]
+
         self.right_frame = tk.Frame(self, bd=5, width=600, height=200, padx=2, pady=5)
         self.right_frame.grid(row=2, column=1)
 
@@ -118,6 +122,7 @@ class display(tk.Frame):
 
         self.ingredient_table.bind("<Button-1>",self.focus_data)
         self.load_data()
+
     def menu_frame(self):
         self.menu_frame = tk.Frame(self)
         self.menu_frame.grid(row=3, columnspan=2)
@@ -131,18 +136,15 @@ class display(tk.Frame):
         self.delete_button = tk.Button(self.menu_frame, text="Delete", command=lambda: self.delete())
         self.delete_button.grid(row=0, column=2)
 
-        self.related_button = tk.Button(self.menu_frame, text="See Related")
-        self.related_button.grid(row=0, column=3)
+        self.related_button_1 = tk.Button(self.menu_frame, text="See Related Restocks")
+        self.related_button_1.grid(row=0, column=3)
+
+        self.related_button_2 = tk.Button(self.menu_frame, text="See Related Recipes")
+        self.related_button_2.grid(row=0, column=4)
 
         self.menu_button = tk.Button(self.menu_frame, text="Back", command=lambda: (self.forget(), m.menu()))
-        self.menu_button.grid(row=0, column=4)
+        self.menu_button.grid(row=0, column=5)
 
-    def reset(self):
-        self.entry_ingredient_id.delete(0, 'end')
-        self.entry_ingredient_name.delete(0, 'end')
-        self.entry_ingredient_stock.delete(0, 'end')
-        self.entry_ingredient_minimun_stock.delete(0, 'end')
-        self.entry_ingredient_unit.delete(0, 'end')
     def focus_data(self, event):
         global ingredient_data
         self.reset()
@@ -154,12 +156,20 @@ class display(tk.Frame):
         self.entry_ingredient_stock.insert('end',ingredient_data[2])
         self.entry_ingredient_minimun_stock.insert('end', ingredient_data[3])
         self.entry_ingredient_unit.insert('end',ingredient_data[4])
+
     def load_data(self):
-        data = database.selectall("Ingredients")
+        data = database.select("SELECT * FROM INGREDIENTS ORDER BY " + self.field_selected.get() + " " + self.order_selected.get(), None)
         if (len(data) != 0):
             self.ingredient_table.delete(*self.ingredient_table.get_children())
             for row in data:
                 self.ingredient_table.insert('','end',values=row)
+
+    def reset(self):
+        self.entry_ingredient_id.delete(0, 'end')
+        self.entry_ingredient_name.delete(0, 'end')
+        self.entry_ingredient_stock.delete(0, 'end')
+        self.entry_ingredient_minimun_stock.delete(0, 'end')
+        self.entry_ingredient_unit.delete(0, 'end')
 
     def edit(self):
         if (self.entry_ingredient_id.get() == ""):
@@ -170,9 +180,7 @@ class display(tk.Frame):
                 data = (self.entry_ingredient_name.get(),self.entry_ingredient_stock.get(), self.entry_ingredient_minimun_stock.get(), self.entry_ingredient_unit.get(),ingredient_data[0])
                 database.update("Ingredients ", "name = ?, stock = ?, deficit_amount = ?, units = ?", "Ingredient_id like ?", data)
                 self.load_data()
-                tk.messagebox.showinfo('Return','Data has been edited')
-            else:
-                tk.messagebox.showinfo('Return','Data has not been edited')
+
     def delete(self):
         if (self.entry_ingredient_id.get() == ""):
             tk.messagebox.showerror('Error','Select an entry')
@@ -181,10 +189,18 @@ class display(tk.Frame):
             if confirmation == 'yes':
                 data = (self.entry_ingredient_id.get(), self.entry_ingredient_name.get(), self.entry_ingredient_stock.get(), self.entry_ingredient_minimun_stock.get(), self.entry_ingredient_unit.get())
                 database.delete("Ingredients ", "ingredient_id = ? and name = ? and stock = ? and deficit_amount = ? and units = ?", data)
-                tk.messagebox.showinfo('Return','Data has been deleted')
                 self.load_data()
-            else:
-                tk.messagebox.showinfo('Return','Data has not been deleted')
+
+    '''def search(self):
+        if (self.search_selected.get() == "Name" or self.search_selected.get() == "Units"):
+            data = database.select("SELECT * FROM INGREDIENTS WHERE " + self.search_selected.get() + " " + self.operator_selected.get() + "' ? '" + " ORDER BY " + self.field_selected.get() + " " + self.order_selected.get(), (self.search_entry.get(),))
+        else:
+            data = database.select("SELECT * FROM INGREDIENTS WHERE " + self.search_selected.get() + " " + self.operator_selected.get() + " ? " + " ORDER BY " + self.field_selected.get() + " " + self.order_selected.get(), (self.search_entry.get(),))
+        if (len(data) != 0):
+            self.ingredient_table.delete(*self.ingredient_table.get_children())
+            for row in data:
+                self.ingredient_table.insert('','end',values=row)
+'''
 
 class add(tk.Frame):
     def __init__(self):
@@ -237,12 +253,3 @@ class add(tk.Frame):
         confirmation = tk.messagebox.askquestion('Add Data','Are you sure you want to enter this data')
         if confirmation == 'yes':
             database.insert("Ingredients", "(Null,?,?,?,?)",(self.entry_ingredient_name.get(),self.entry_ingredient_stock.get(), self.entry_ingredient_minimun_stock.get(), self.entry_ingredient_unit.get()))
-            tk.messagebox.showinfo('Return','Data has been entered')
-        else:
-            tk.messagebox.showinfo('Return','Data has not been entered')
-
-
-
-
-
-
