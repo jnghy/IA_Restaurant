@@ -2,6 +2,7 @@ import tkinter as tk
 import tkinter.ttk as ttk
 import menu as m
 import database
+import sqlite3
 
 class display(tk.Frame):
     def __init__(self):
@@ -136,11 +137,12 @@ class display(tk.Frame):
         self.delete_button = tk.Button(self.menu_frame, text="Delete", command=lambda: self.delete())
         self.delete_button.grid(row=0, column=2)
 
-        self.related_button_1 = tk.Button(self.menu_frame, text="See Related Restocks")
+        '''self.related_button_1 = tk.Button(self.menu_frame, text="See Related Restocks", command=lambda: self.related_restock())
         self.related_button_1.grid(row=0, column=3)
 
         self.related_button_2 = tk.Button(self.menu_frame, text="See Related Recipes")
         self.related_button_2.grid(row=0, column=4)
+'''
 
         self.menu_button = tk.Button(self.menu_frame, text="Back", command=lambda: (self.forget(), m.menu()))
         self.menu_button.grid(row=0, column=5)
@@ -182,14 +184,17 @@ class display(tk.Frame):
                 self.load_data()
 
     def delete(self):
-        if (self.entry_ingredient_id.get() == ""):
-            tk.messagebox.showerror('Error','Select an entry')
-        else:
-            confirmation = tk.messagebox.askquestion('Delete Data','Are you sure you want to delete this entry')
-            if confirmation == 'yes':
-                data = (self.entry_ingredient_id.get(), self.entry_ingredient_name.get(), self.entry_ingredient_stock.get(), self.entry_ingredient_minimun_stock.get(), self.entry_ingredient_unit.get())
-                database.delete("Ingredients ", "ingredient_id = ? and name = ? and stock = ? and deficit_amount = ? and units = ?", data)
-                self.load_data()
+        try:
+            if (self.entry_ingredient_id.get() == ""):
+                tk.messagebox.showerror('Error','Select an entry')
+            else:
+                confirmation = tk.messagebox.askquestion('Delete Data','Are you sure you want to delete this entry')
+                if confirmation == 'yes':
+                    data = (self.entry_ingredient_id.get(), self.entry_ingredient_name.get(), self.entry_ingredient_stock.get(), self.entry_ingredient_minimun_stock.get(), self.entry_ingredient_unit.get())
+                    database.delete("Ingredients ", "ingredient_id = ? and name = ? and stock = ? and deficit_amount = ? and units = ?", data)
+                    self.load_data()
+        except sqlite3.IntegrityError:
+            tk.messagebox.showerror('Error','Deletion Failed')
 
     '''def search(self):
         if (self.search_selected.get() == "Name" or self.search_selected.get() == "Units"):
