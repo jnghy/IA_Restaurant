@@ -78,7 +78,8 @@ create('''ingredients
 create('''products
             (product_id integer PRIMARY KEY, 
             name text not null, 
-            price integer not null
+            price integer not null,
+            description text
             )''')
 
 create(''' restocks 
@@ -150,8 +151,8 @@ def dummy():
     insert("ingredients","(Null, 'baking powder', 50, 20, 'grams')", None)
 
     #insert dummy data products
-    insert("products","(Null, 'plain cookies (pack of 6)', 300)", None)
-    insert("products","(Null, 'peanut butter cookies (pack of 6)', 325)", None)
+    insert("products","(Null, 'plain cookies', 300,  '(pack of 6)')", None)
+    insert("products","(Null, 'peanut butter cookies', 325, '(pack of 6)')", None)
 
     #insert dummy data restocks
     insert("restocks","(Null, 1, 1000, 500, Null, 2021-03-04)", None)

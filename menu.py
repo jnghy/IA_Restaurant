@@ -1,12 +1,7 @@
 import tkinter as tk
 import ingredients
 import restock
-import database as db
-import sqlite3
-
-conn = sqlite3.connect('restaurant.db')
-conn.execute("PRAGMA foreign_keys = 1")
-c = conn.cursor()
+import products
 
 class menu(tk.Frame):
     def __init__(self):
@@ -16,21 +11,21 @@ class menu(tk.Frame):
         self.title_text = tk.Label(self, text="Main Menu", pady=30, font=("Lucida Grande", 20, 'bold'))
         self.title_text.grid(columnspan=2)
 
-        self.ingredients_button = tk.Button(self, text="Ingredients", pady=10, command=lambda: (self.forget(), ingredients.display()))
-        self.ingredients_button.grid(row=1, column=0)
+        self.ingredients_button = tk.Button(self, text="Ingredients", width = 10, pady=10, command=lambda: (self.forget(), ingredients.display()))
+        self.ingredients_button.grid(row=1, column=0, padx=10)
 
+        self.restock_button = tk.Button(self, text="Restock", width = 10, pady=10, command=lambda: (self.forget(), restock.display()))
+        self.restock_button.grid(row=1, column=1, padx=10)
 
-        self.restock_button = tk.Button(self, text="Restock", pady=10, command=lambda: (self.forget(), restock.display()))
-        self.restock_button.grid()
+        self.product_button = tk.Button(self, text="Product", width = 10, pady=10, command=lambda: (self.forget(), products.display()))
+        self.product_button.grid(row=2, column=0)
+
         
         '''self.order_button = tk.Button(self, text="Orders", pady=10, command=lambda: (self.forget(), orders_menu()))
                 self.order_button.grid()
         
                 self.deliveries_button = tk.Button(self, text="Deliveries", pady=10, command=lambda: (self.forget(), deliveries_menu()))
                 self.deliveries_button.grid()
-        
-                self.product_button = tk.Button(self, text="Product", pady=10, command=lambda: (self.forget(), products_menu()))
-                self.product_button.grid()
         
                 self.customers_button = tk.Button(self, text="Customers", pady=10, command=lambda: (self.forget(), customers_menu()))
                 self.customers_button.grid()
