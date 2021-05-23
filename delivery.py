@@ -204,8 +204,8 @@ class display(tk.Frame):
         with open(file_name, 'w') as fp:
             csvwriter = csv.writer(fp, delimiter=',')
             csvwriter.writerow(self.fields)
-            for row_id in self.order_table.get_children():
-                row = self.order_table.item(row_id)['values']
+            for row_id in self.delivery_table.get_children():
+                row = self.delivery_table.item(row_id)['values']
                 csvwriter.writerow(row)
             tk.messagebox.showinfo("Save to CSV file","File was saved")
 

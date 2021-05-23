@@ -54,7 +54,10 @@ class menu(tk.Frame):
         for row in database.select('''SELECT GROUP_CONCAT(name, ", ")
                                 FROM ingredients
                                 WHERE stock <= deficit_amount''', None):
-            list += row[0]
+            if row[0] == None:
+                list = "None"
+            else:
+                list += row[0]
 
         self.ingredient_list = tk.Label(self, text=list, font=("Lucida Grande", 15))
         self.ingredient_list.grid(row=7, columnspan=2)

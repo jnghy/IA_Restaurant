@@ -48,7 +48,6 @@ class display(tk.Frame):
         self.load_button = tk.Button(self.fields_frame, text="Load", command=lambda: (self.load_data()))
         self.load_button.grid(row = 0, column=0)
 
-
     def display_frame(self):
         self.left_frame = tk.Frame(self, width=310, height=150, padx=2, pady=10)
         self.left_frame.grid(row=2, column=0, sticky=tk.NW)
