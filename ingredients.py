@@ -3,6 +3,8 @@ import tkinter.ttk as ttk
 import menu as m
 import database
 import sqlite3
+import datetime
+import csv
 
 class display(tk.Frame):
     def __init__(self):
@@ -45,26 +47,6 @@ class display(tk.Frame):
 
         self.load_button = tk.Button(self.fields_frame, text="Load", command=lambda: (self.load_data()))
         self.load_button.grid(row = 0, column=0)
-
-        '''self.search_frame = tk.Frame(self)
-        self.search_frame.grid(row=1, column=1,  sticky=tk.NE)
-
-        self.search_button = tk.Button(self.search_frame, text="Search", command=lambda: (self.search()))
-        self.search_button.grid(row= 0, column=3)
-
-        self.search_selected = tk.StringVar()
-        self.search_menu = tk.OptionMenu(self.search_frame, self.search_selected , *self.columns)
-        self.search_menu.config(width=20)
-        self.search_menu.grid(row=0, column = 0)
-
-        self.operators = ["like", "not like", "<", ">"]
-        self.operator_selected = tk.StringVar()
-        self.search_menu = tk.OptionMenu(self.search_frame, self.operator_selected , *self.operators)
-        self.search_menu.config(width=10)
-        self.search_menu.grid(row=0, column = 1)
-
-        self.search_entry = tk.Entry(self.search_frame, width=20,justify='left')
-        self.search_entry.grid(row=0, column=2)'''
 
     def display_frame(self):
         self.left_frame = tk.Frame(self, width=310, height=150, padx=2, pady=10)
@@ -128,21 +110,19 @@ class display(tk.Frame):
         self.menu_frame = tk.Frame(self)
         self.menu_frame.grid(row=3, columnspan=2)
 
-        self.add_button = tk.Button(self.menu_frame, text="Add", command=lambda: (self.forget(), add()))
+        self.add_button = tk.Button(self.menu_frame, text="Add", command=lambda: (self.forget(), add_product()))
         self.add_button.grid(row = 0, column=0)
 
-        self.edit_button = tk.Button(self.menu_frame, text="Edit", command=lambda: self.edit())
+        self.edit_button = tk.Button(self.menu_frame, text="Edit", command=lambda: (self.edit()))
         self.edit_button.grid(row = 0, column=1)
 
         self.delete_button = tk.Button(self.menu_frame, text="Delete", command=lambda: self.delete())
         self.delete_button.grid(row=0, column=2)
 
-        '''self.related_button_1 = tk.Button(self.menu_frame, text="See Related Restocks", command=lambda: self.related_restock())
-        self.related_button_1.grid(row=0, column=3)
+        self.export_button = tk.Button(self.menu_frame, text="Export", command=lambda: self.export())
+        self.export_button.grid(row=0, column=3)
 
-        self.related_button_2 = tk.Button(self.menu_frame, text="See Related Recipes")
-        self.related_button_2.grid(row=0, column=4)
-'''
+        ''' related buttons '''
 
         self.menu_button = tk.Button(self.menu_frame, text="Back", command=lambda: (self.forget(), m.menu()))
         self.menu_button.grid(row=0, column=5)
@@ -177,11 +157,8 @@ class display(tk.Frame):
         if (self.entry_ingredient_id.get() == ""):
             tk.messagebox.showerror('Error','Select an entry')
         else:
-            confirmation = tk.messagebox.askquestion('Edit Data','Are you sure you want to edit this entry')
-            if confirmation == 'yes':
-                data = (self.entry_ingredient_name.get(),self.entry_ingredient_stock.get(), self.entry_ingredient_minimun_stock.get(), self.entry_ingredient_unit.get(),ingredient_data[0])
-                database.update("Ingredients ", "name = ?, stock = ?, deficit_amount = ?, units = ?", "Ingredient_id like ?", data)
-                self.load_data()
+            self.forget()
+            edit_product()
 
     def delete(self):
         try:
@@ -196,18 +173,20 @@ class display(tk.Frame):
         except sqlite3.IntegrityError:
             tk.messagebox.showerror('Error','Deletion Failed')
 
-    '''def search(self):
-        if (self.search_selected.get() == "Name" or self.search_selected.get() == "Units"):
-            data = database.select("SELECT * FROM INGREDIENTS WHERE " + self.search_selected.get() + " " + self.operator_selected.get() + "' ? '" + " ORDER BY " + self.field_selected.get() + " " + self.order_selected.get(), (self.search_entry.get(),))
-        else:
-            data = database.select("SELECT * FROM INGREDIENTS WHERE " + self.search_selected.get() + " " + self.operator_selected.get() + " ? " + " ORDER BY " + self.field_selected.get() + " " + self.order_selected.get(), (self.search_entry.get(),))
-        if (len(data) != 0):
-            self.ingredient_table.delete(*self.ingredient_table.get_children())
-            for row in data:
-                self.ingredient_table.insert('','end',values=row)
-'''
+    def export(self):
+        current_date_and_time = datetime.datetime.now()
+        current_date_and_time_string = str(current_date_and_time)
+        extension = ".csv"
+        file_name =  current_date_and_time_string + extension
+        with open(file_name, 'w') as fp:
+            csvwriter = csv.writer(fp, delimiter=',')
+            csvwriter.writerow(self.fields)
+            for row_id in self.ingredient_table.get_children():
+                row = self.ingredient_table.item(row_id)['values']
+                csvwriter.writerow(row)
+            tk.messagebox.showinfo("Save to CSV file","File was saved")
 
-class add(tk.Frame):
+class add_product(tk.Frame):
     def __init__(self):
         super().__init__()
         self.pack()
@@ -258,3 +237,61 @@ class add(tk.Frame):
         confirmation = tk.messagebox.askquestion('Add Data','Are you sure you want to enter this data')
         if confirmation == 'yes':
             database.insert("Ingredients", "(Null,?,?,?,?)",(self.entry_ingredient_name.get(),self.entry_ingredient_stock.get(), self.entry_ingredient_minimun_stock.get(), self.entry_ingredient_unit.get()))
+
+class edit_product(tk.Frame):
+    def __init__(self):
+        super().__init__()
+        self.pack()
+        self.title_frame = tk.Frame(self)
+        self.title_frame.grid(row=0,columnspan=2, column=0)
+
+        self.title_text = tk.Label(self.title_frame, text="Add Ingredients", pady=30, font=("Lucida Grande", 20, 'bold'))
+        self.title_text.grid(columnspan=2)
+
+        self.display_frame()
+        self.menu_frame()
+
+    def display_frame(self):
+        self.left_frame = tk.Frame(self, width=310, height=150, padx=2, pady=10)
+        self.left_frame.grid(row=1, column=0, sticky=tk.NW)
+
+        self.label_ingredient_name = tk.Label(self.left_frame, text="Ingredient Name: ", anchor=tk.W,justify='left')
+        self.label_ingredient_name.grid(row=1, column=0, sticky=tk.NW, padx=5)
+        self.entry_ingredient_name = tk.Entry(self.left_frame,  width=35,justify='left')
+        self.entry_ingredient_name.grid(row=1, column=1)
+
+        self.label_ingredient_stock = tk.Label(self.left_frame,text="Ingredient Stock: ", anchor=tk.W,justify='left')
+        self.label_ingredient_stock.grid(row=2, column=0, sticky=tk.NW, padx=5)
+        self.entry_ingredient_stock = tk.Entry(self.left_frame, width=35,justify='left')
+        self.entry_ingredient_stock.grid(row=2, column=1)
+
+        self.label_ingredient_minimun_stock = tk.Label(self.left_frame, text="Minimum Stock: ", anchor=tk.W,justify='left')
+        self.label_ingredient_minimun_stock.grid(row=3, column=0, sticky=tk.NW, padx=5)
+        self.entry_ingredient_minimun_stock = tk.Entry(self.left_frame, width=35,justify='left')
+        self.entry_ingredient_minimun_stock.grid(row=3, column=1)
+
+        self.label_ingredient_unit = tk.Label(self.left_frame,text="Unit Used: ", anchor=tk.W,justify='left')
+        self.label_ingredient_unit.grid(row=4, column=0, sticky=tk.NW, padx=5)
+        self.entry_ingredient_unit = tk.Entry(self.left_frame, width=35,justify='left')
+        self.entry_ingredient_unit.grid(row=4, column=1)
+
+        self.entry_ingredient_name.insert('end', ingredient_data[1])
+        self.entry_ingredient_stock.insert('end',ingredient_data[2])
+        self.entry_ingredient_minimun_stock.insert('end', ingredient_data[3])
+        self.entry_ingredient_unit.insert('end',ingredient_data[4])
+
+    def menu_frame(self):
+        self.menu_frame = tk.Frame(self)
+        self.menu_frame.grid(row=2, columnspan=2)
+
+        self.edit_button = tk.Button(self.menu_frame, text="Edit", command=lambda: self.edit())
+        self.edit_button.grid(row = 0, column=1)
+
+        self.menu_button = tk.Button(self.menu_frame, text="Back", command=lambda: (self.forget(), display()))
+        self.menu_button.grid(row=0, column=2)
+
+    def edit(self):
+        confirmation = tk.messagebox.askquestion('Edit Data','Are you sure you want to edit this entry')
+        if confirmation == 'yes':
+            data = (self.entry_ingredient_name.get(),self.entry_ingredient_stock.get(), self.entry_ingredient_minimun_stock.get(), self.entry_ingredient_unit.get(),ingredient_data[0])
+            database.update("Ingredients ", "name = ?, stock = ?, deficit_amount = ?, units = ?", "Ingredient_id like ?", data)

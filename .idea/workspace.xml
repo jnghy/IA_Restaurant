@@ -19,11 +19,17 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdff5d0f-fcbd-4bb0-b8db-d1c5ab1773cc" name="Default Changelist" comment="Restock Added">
+    <list default="true" id="cdff5d0f-fcbd-4bb0-b8db-d1c5ab1773cc" name="Default Changelist" comment="Product">
+      <change afterPath="$PROJECT_DIR$/customers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orders.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product_details.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ingredients.py" beforeDir="false" afterPath="$PROJECT_DIR$/ingredients.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/menu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/restaurant.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/products.py" beforeDir="false" afterPath="$PROJECT_DIR$/products.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant.db" beforeDir="false" afterPath="$PROJECT_DIR$/restaurant.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/restock.py" beforeDir="false" afterPath="$PROJECT_DIR$/restock.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,27 +82,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ingredients" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="IA_Resturant" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ingredients.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="IA_Resturant" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -139,6 +124,48 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="product_details" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="IA_Resturant" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/product_details.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="products" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="IA_Resturant" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/products.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="restock" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="IA_Resturant" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -160,34 +187,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="testing" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="IA_Resturant" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/testing.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.product_details" />
+        <item itemvalue="Python.products" />
         <item itemvalue="Python.database" />
         <item itemvalue="Python.menu" />
         <item itemvalue="Python.restock" />
-        <item itemvalue="Python.ingredients" />
-        <item itemvalue="Python.testing" />
       </list>
     </recent_temporary>
   </component>
@@ -208,61 +214,64 @@
     <MESSAGE value="Yup" />
     <MESSAGE value="Search and Order buttons created" />
     <MESSAGE value="Restock Added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Restock Added" />
+    <MESSAGE value="Product" />
+    <option name="LAST_COMMIT_MESSAGE" value="Product" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="184" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1619149008386">
+    <state x="184" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1621777264039">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="184" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1619149008386" />
-    <state x="438" y="259" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1621235909111">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="184" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1621777264039" />
+    <state x="438" y="275" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1621382713118">
+      <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="438" y="259" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1440.900@0.0.1440.900" timestamp="1621235909111" />
+    <state x="438" y="275" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1440.877@0.23.1440.877" timestamp="1621382713118" />
     <state x="530" y="364" key="#com.jetbrains.python.refactoring.move.PyMakeFunctionTopLevelDialog" timestamp="1621223419134">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="530" y="364" key="#com.jetbrains.python.refactoring.move.PyMakeFunctionTopLevelDialog/0.0.1440.900@0.0.1440.900" timestamp="1621223419134" />
-    <state width="1419" height="243" key="GridCell.Tab.0.bottom" timestamp="1621270268775">
+    <state width="1419" height="242" key="GridCell.Tab.0.bottom" timestamp="1621786012822">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1419" height="243" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1621270175015" />
-    <state width="1419" height="243" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1621270268775" />
-    <state width="1419" height="243" key="GridCell.Tab.0.center" timestamp="1621270268773">
+    <state width="1419" height="242" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1621786006206" />
+    <state width="1419" height="242" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1621786012822" />
+    <state width="1419" height="242" key="GridCell.Tab.0.center" timestamp="1621786012821">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1419" height="243" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1621270175014" />
-    <state width="1419" height="243" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1621270268773" />
-    <state width="1419" height="243" key="GridCell.Tab.0.left" timestamp="1621270268773">
+    <state width="1419" height="242" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1621786006205" />
+    <state width="1419" height="242" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1621786012821" />
+    <state width="1419" height="242" key="GridCell.Tab.0.left" timestamp="1621786012820">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1419" height="243" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1621270175010" />
-    <state width="1419" height="243" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1621270268773" />
-    <state width="1419" height="243" key="GridCell.Tab.0.right" timestamp="1621270268774">
+    <state width="1419" height="242" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1621786006203" />
+    <state width="1419" height="242" key="GridCell.Tab.0.left/0.0.1440.900@0.23.1440.877" timestamp="1621761353075" />
+    <state width="1419" height="242" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1621786012820" />
+    <state width="1419" height="242" key="GridCell.Tab.0.right" timestamp="1621786012821">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1419" height="243" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1621270175014" />
-    <state width="1419" height="243" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1621270268774" />
-    <state width="1419" height="293" key="GridCell.Tab.1.bottom" timestamp="1621236277657">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1419" height="242" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1621786006206" />
+    <state width="1419" height="242" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1621786012821" />
+    <state width="1419" height="293" key="GridCell.Tab.1.bottom" timestamp="1621785436106">
+      <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1419" height="293" key="GridCell.Tab.1.bottom/0.0.1440.900@0.0.1440.900" timestamp="1621236277657" />
-    <state width="1419" height="293" key="GridCell.Tab.1.bottom/0.23.1440.877@0.23.1440.877" timestamp="1621236217285" />
-    <state width="1419" height="293" key="GridCell.Tab.1.center" timestamp="1621236277655">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1419" height="293" key="GridCell.Tab.1.bottom/0.0.1440.900@0.0.1440.900" timestamp="1621782382060" />
+    <state width="1419" height="293" key="GridCell.Tab.1.bottom/0.23.1440.877@0.23.1440.877" timestamp="1621785436106" />
+    <state width="1419" height="293" key="GridCell.Tab.1.center" timestamp="1621785436105">
+      <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1419" height="293" key="GridCell.Tab.1.center/0.0.1440.900@0.0.1440.900" timestamp="1621236277655" />
-    <state width="1419" height="293" key="GridCell.Tab.1.center/0.23.1440.877@0.23.1440.877" timestamp="1621236217285" />
-    <state width="1419" height="293" key="GridCell.Tab.1.left" timestamp="1621236277654">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1419" height="293" key="GridCell.Tab.1.center/0.0.1440.900@0.0.1440.900" timestamp="1621782382059" />
+    <state width="1419" height="293" key="GridCell.Tab.1.center/0.23.1440.877@0.23.1440.877" timestamp="1621785436105" />
+    <state width="1419" height="293" key="GridCell.Tab.1.left" timestamp="1621785436099">
+      <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1419" height="293" key="GridCell.Tab.1.left/0.0.1440.900@0.0.1440.900" timestamp="1621236277654" />
-    <state width="1419" height="293" key="GridCell.Tab.1.left/0.23.1440.877@0.23.1440.877" timestamp="1621236217284" />
-    <state width="1419" height="293" key="GridCell.Tab.1.right" timestamp="1621236277656">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1419" height="293" key="GridCell.Tab.1.left/0.0.1440.900@0.0.1440.900" timestamp="1621782382059" />
+    <state width="1419" height="293" key="GridCell.Tab.1.left/0.23.1440.877@0.23.1440.877" timestamp="1621785436099" />
+    <state width="1419" height="293" key="GridCell.Tab.1.right" timestamp="1621785436106">
+      <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state width="1419" height="293" key="GridCell.Tab.1.right/0.0.1440.900@0.0.1440.900" timestamp="1621236277656" />
-    <state width="1419" height="293" key="GridCell.Tab.1.right/0.23.1440.877@0.23.1440.877" timestamp="1621236217285" />
+    <state width="1419" height="293" key="GridCell.Tab.1.right/0.0.1440.900@0.0.1440.900" timestamp="1621782382060" />
+    <state width="1419" height="293" key="GridCell.Tab.1.right/0.23.1440.877@0.23.1440.877" timestamp="1621785436106" />
     <state x="221" y="89" key="SettingsEditor" timestamp="1621197119621">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -275,17 +284,34 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="320" y="190" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1621235947825" />
-    <state x="518" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1619572831428">
+    <state x="518" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1621579586191">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="518" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1440.900@0.0.1440.900" timestamp="1619572831428" />
+    <state x="518" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1440.900@0.0.1440.900" timestamp="1621579586191" />
     <state x="418" y="39" width="604" height="822" key="find.popup" timestamp="1620361620865">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="418" y="39" width="604" height="822" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1620361620865" />
-    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1621223637557">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="385" y="214" width="670" height="659" key="search.everywhere.popup" timestamp="1621314159175">
+      <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1621223637557" />
+    <state x="385" y="214" width="670" height="659" key="search.everywhere.popup/0.23.1440.877@0.23.1440.877" timestamp="1621314159175" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/order_details.py</url>
+          <line>598</line>
+          <option name="timeStamp" value="70" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/restock.py</url>
+          <line>10</line>
+          <option name="timeStamp" value="81" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

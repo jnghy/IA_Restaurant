@@ -3,6 +3,8 @@ import tkinter.ttk as ttk
 import menu as m
 import database
 import sqlite3
+import datetime
+import csv
 
 class display(tk.Frame):
     def __init__(self):
@@ -25,7 +27,7 @@ class display(tk.Frame):
         self.fields_frame = tk.Frame(self)
         self.fields_frame.grid(row=1, column=0, sticky=tk.NW)
 
-        self.columns = ["Restock_Id", "i.Name","Quantity","Total Cost", "Supplier","Date"]
+        self.columns = ["Restock_Id", "i.Name","Quantity","Total_Cost", "Supplier","Date"]
 
         self.field_selected = tk.StringVar()
         self.fields_menu = tk.OptionMenu(self.fields_frame, self.field_selected , *self.columns)
@@ -46,25 +48,6 @@ class display(tk.Frame):
         self.load_button = tk.Button(self.fields_frame, text="Load", command=lambda: (self.load_data()))
         self.load_button.grid(row = 0, column=0)
 
-        '''self.search_frame = tk.Frame(self)
-        self.search_frame.grid(row=1, column=1,  sticky=tk.NE)
-
-        self.search_button = tk.Button(self.search_frame, text="Search", command=lambda: (self.search()))
-        self.search_button.grid(row= 0, column=3)
-
-        self.search_selected = tk.StringVar()
-        self.search_menu = tk.OptionMenu(self.search_frame, self.search_selected , *self.columns)
-        self.search_menu.config(width=20)
-        self.search_menu.grid(row=0, column = 0)
-
-        self.operators = ["like", "not like", "<", ">"]
-        self.operator_selected = tk.StringVar()
-        self.search_menu = tk.OptionMenu(self.search_frame, self.operator_selected , *self.operators)
-        self.search_menu.config(width=10)
-        self.search_menu.grid(row=0, column = 1)
-
-        self.search_entry = tk.Entry(self.search_frame, width=20,justify='left')
-        self.search_entry.grid(row=0, column=2)'''
 
     def display_frame(self):
         self.left_frame = tk.Frame(self, width=310, height=150, padx=2, pady=10)
@@ -109,7 +92,7 @@ class display(tk.Frame):
         self.entry_date.grid(row=5, column=1)
 
     def table_frame(self):
-        self.fields = ["Id", "Name","Quantity","Cost", "Supplier","Date"]
+        self.fields = ["Id", "Ingredient Name","Quantity","Cost", "Supplier","Date"]
 
         self.right_frame = tk.Frame(self, bd=5, width=600, height=200, padx=2, pady=5)
         self.right_frame.grid(row=2, column=1)
@@ -123,7 +106,7 @@ class display(tk.Frame):
         scroll_y.pack(side='bottom', fill='y')
 
         self.restock_table.column(self.fields[0], width=75)
-        self.restock_table.column(self.fields[1], width=280)
+        self.restock_table.column(self.fields[1], width=150)
         self.restock_table.column(self.fields[2], width=100)
         self.restock_table.column(self.fields[3], width=100)
         self.restock_table.column(self.fields[4], width=100)
@@ -151,8 +134,8 @@ class display(tk.Frame):
         self.delete_button = tk.Button(self.menu_frame, text="Delete", command=lambda: self.delete())
         self.delete_button.grid(row=0, column=2)
 
-        '''self.related_button = tk.Button(self.menu_frame, text="See Related")
-        self.related_button.grid(row=0, column=3)'''
+        self.export_button = tk.Button(self.menu_frame, text="Export", command=lambda: self.export())
+        self.export_button.grid(row=0, column=3)
 
         self.menu_button = tk.Button(self.menu_frame, text="Back", command=lambda: (self.forget(), m.menu()))
         self.menu_button.grid(row=0, column=4)
@@ -208,6 +191,19 @@ class display(tk.Frame):
                     self.reset()
         except sqlite3.IntegrityError:
             tk.messagebox.showerror('Error','Deletion Failed')
+            
+    def export(self):
+        current_date_and_time = datetime.datetime.now()
+        current_date_and_time_string = str(current_date_and_time)
+        extension = ".csv"
+        file_name =  current_date_and_time_string + extension
+        with open(file_name, 'w') as fp:
+            csvwriter = csv.writer(fp, delimiter=',')
+            csvwriter.writerow(self.fields)
+            for row_id in self.restock_table.get_children():
+                row = self.restock_table.item(row_id)['values']
+                csvwriter.writerow(row)
+            tk.messagebox.showinfo("Save to CSV file","File was saved")
 
 class add_restock(tk.Frame):
     def __init__(self):
