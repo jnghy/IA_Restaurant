@@ -119,7 +119,7 @@ class display(tk.Frame):
         self.reset()
         self.view_info = self.product_table.focus()
         self.product_selected = self.product_table.item(self.view_info)
-        ingredient_data = self.product_selected['values']
+        product_data = self.product_selected['values']
         self.entry_product_id.insert('end', product_data[0])
         self.entry_product_name.insert('end', product_data[1])
         self.entry_price.insert('end',product_data[2])
@@ -137,11 +137,10 @@ class display(tk.Frame):
                 self.product_table.insert('','end',values=row)
 
     def reset(self):
-        self.entry_ingredient_id.delete(0, 'end')
-        self.entry_ingredient_name.delete(0, 'end')
-        self.entry_ingredient_stock.delete(0, 'end')
-        self.entry_ingredient_minimun_stock.delete(0, 'end')
-        self.entry_ingredient_unit.delete(0, 'end')
+        self.entry_product_id.delete(0, 'end')
+        self.entry_product_name.delete(0, 'end')
+        self.entry_price.delete(0, 'end')
+        self.entry_amount_earned.delete(0, 'end')
 
     def export(self):
         current_date_and_time = datetime.datetime.now()

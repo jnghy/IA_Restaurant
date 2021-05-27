@@ -226,12 +226,12 @@ class add_delivery(tk.Frame):
         self.left_frame = tk.Frame(self, width=310, height=150, padx=2, pady=10)
         self.left_frame.grid(row=2, column=0, sticky=tk.NW)
 
+        self.add_order_frame = tk.Frame(self.left_frame)
+
         self.status_order = tk.IntVar()
         self.status_order.set(1)
         self.check = tk.Checkbutton(self.left_frame, text='Existing Order',variable=self.status_order, onvalue=1, offvalue=0, command=self.checkbox_order())
         self.check.grid(row=0, column = 0, sticky=tk.NW)
-
-        self.add_order_frame = tk.Frame(self.left_frame)
 
         self.checkbox_order()
 

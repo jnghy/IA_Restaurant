@@ -63,9 +63,6 @@ def selectone(statement, data):
     row = c.fetchone()
     return row
 
-def log():
-    return
-    #get table name, time changed, old data, and new data
 
 create('''ingredients 
             (ingredient_id integer PRIMARY KEY, 
@@ -89,7 +86,8 @@ create(''' restocks
             total_cost integer,
             supplier text,
             date text not null,
-            FOREIGN KEY (ingredient_id) REFERENCES ingredients (ingredient_id) 
+            FOREIGN KEY (ingredient_id) REFERENCES ingredients (ingredient_id)
+            ON DELETE CASCADE
             )''')
 
 create(''' product_details
@@ -98,8 +96,8 @@ create(''' product_details
             ingredient_id integer, 
             product_id integer, 
             quantity real not null,
-	        FOREIGN KEY (ingredient_id) REFERENCES ingredients (ingredient_id),
-        	FOREIGN KEY (product_id) REFERENCES products (product_id) 
+	        FOREIGN KEY (ingredient_id) REFERENCES ingredients (ingredient_id) ON DELETE CASCADE,
+        	FOREIGN KEY (product_id) REFERENCES products (product_id) ON DELETE CASCADE 
             )''')
 
 create(''' customers 
@@ -118,7 +116,7 @@ create('''orders
             date text,
             customer_id number,
             discount real default 0,
-            FOREIGN KEY (customer_id) REFERENCES customers (customer_id)
+            FOREIGN KEY (customer_id) REFERENCES customers (customer_id) ON DELETE CASCADE
             )''')
 
 create('''order_details
@@ -126,15 +124,15 @@ create('''order_details
             order_id integer,
             product_id number, 
             quantity integer,
-            FOREIGN KEY (product_id) REFERENCES products (product_Id)
-            FOREIGN KEY (order_id) REFERENCES orders (order_id)
+            FOREIGN KEY (product_id) REFERENCES products (product_Id) ON DELETE CASCADE,
+            FOREIGN KEY (order_id) REFERENCES orders (order_id) ON DELETE CASCADE
             )''')
 
 create('''delivery
             (delivery_id integer PRIMARY KEY,
             order_id integer, 
             delivery_fee real default 0,
-	        FOREIGN KEY (order_id) REFERENCES orders (order_id)
+	        FOREIGN KEY (order_id) REFERENCES orders (order_id) ON DELETE CASCADE
             )''')
 
 def dummy():
@@ -215,4 +213,5 @@ def dummy():
     insert("delivery","(Null, 1, Null)", None)
     insert("delivery","(Null, 5, 25)", None)
     insert("delivery","(Null, 3, 50)", None)
+
 

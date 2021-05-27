@@ -256,9 +256,9 @@ class add_order_details(tk.Frame):
             self.order_selection_frame.grid(row=1, column=0, columnspan=2, sticky=tk.NW)
 
             self.order_fields = []
-            for row in database.select('''SELECT DISTINCT last_name || ', ' || first_name || ' - '  || o.date FROM order_details od, orders o, customers c
-                                        WHERE od.order_id = o.order_id
-                                        AND c.customer_id = o.customer_id''', None):
+            for row in database.select('''SELECT DISTINCT last_name || ', ' || first_name || ' - '  || o.date 
+                                        FROM orders o, customers c
+                                        WHERE c.customer_id = o.customer_id''', None):
                 self.order_fields += row
 
             self.order_selected = tk.StringVar()
@@ -407,10 +407,10 @@ class add_order_details(tk.Frame):
         if confirmation == 'yes':
             if (self.status_order.get() == 1):
                 self.order_id = database.selectone('''SELECT order_id
-                                                    FROM(SELECT o.order_id, last_name || ', ' || first_name || ' - '  || o.date  as info
-                                                        FROM order_details od, orders o, customers c
-                                                        WHERE od.order_id = o.order_id
-                                                        AND c.customer_id = o.customer_id)
+                                                        FROM(
+                                                        SELECT o.order_id, last_name || ', ' || first_name || ' - '  || o.date  as info
+                                                        FROM orders o, customers c
+                                                        WHERE c.customer_id = o.customer_id) 
                                                     WHERE info = ?''', (self.order_selected.get(),))
             else:
                 if (self.status_customer.get() == 1):
@@ -650,11 +650,11 @@ class edit_order_details(tk.Frame):
         if confirmation == 'yes':
             if (self.status_order.get() == 1):
                 self.order_id = database.selectone('''SELECT order_id
-                                                    FROM(SELECT o.order_id, last_name || ', ' || first_name || ' - '  || o.date  as info
-                                                        FROM order_details od, orders o, customers c
-                                                        WHERE od.order_id = o.order_id
-                                                        AND c.customer_id = o.customer_id)
-                                                    WHERE info = ?''', (self.order_selected.get(),))
+                                                        FROM(
+                                                        SELECT o.order_id, last_name || ', ' || first_name || ' - '  || o.date  as info
+                                                        FROM orders o, customers c
+                                                        WHERE c.customer_id = o.customer_id) 
+                                                    info = ?''', (self.order_selected.get(),))
             else:
                 if (self.status_customer.get() == 1):
                     self.customer_id = database.selectone("SELECT customer_id FROM (SELECT customer_id, last_name || ', ' || first_name as name FROM customers) where name = ?", (self.customer_selected.get(),))
