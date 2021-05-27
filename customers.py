@@ -6,12 +6,6 @@ import sqlite3
 import datetime
 import csv
 
-'''self.label_ = tk.Label(self.left_frame, text="First Name: ", anchor=tk.W,justify='left')
-        self.label_.grid(row=1, column=0, sticky=tk.NW, padx=5)
-        self.entry_ = tk.Entry(self.left_frame, width=35,justify='left')
-        self.entry_.grid(row=1, column=1)'''
-
-
 class display(tk.Frame):
     def __init__(self):
         super().__init__()

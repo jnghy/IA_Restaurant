@@ -243,11 +243,11 @@ class add_restock(tk.Frame):
 
         self.status_ingredient = tk.IntVar()
         self.status_ingredient.set(1)
-        self.check = tk.Checkbutton(self.left_frame, text='Existing Ingredient',variable=self.status_ingredient, onvalue=1, offvalue=0, command=self.checkbox)
+        self.check = tk.Checkbutton(self.left_frame, text='Existing Ingredient',variable=self.status_ingredient, onvalue=1, offvalue=0, command=self.checkbox_ingredient)
         self.check.grid(row=4, column = 0)
 
         self.add_ingredient_frame = tk.Frame(self.left_frame)
-        self.checkbox()
+        self.checkbox_ingredient()
 
     def menu_frame(self):
         self.menu_frame = tk.Frame(self)
@@ -274,7 +274,7 @@ class add_restock(tk.Frame):
             self.stock_data = (self.added_stock, self.ingredient_id[0])
             database.update("Ingredients ", "stock = ?", "Ingredient_id = ?", self.stock_data)
 
-    def checkbox(self):
+    def checkbox_ingredient(self):
         if (self.status_ingredient.get() == 1):
             self.add_ingredient_frame.destroy()
             self.selection_frame = tk.Frame(self.left_frame)
@@ -357,11 +357,11 @@ class edit_restock(tk.Frame):
 
         self.status_ingredient = tk.IntVar()
         self.status_ingredient.set(1)
-        self.check = tk.Checkbutton(self.left_frame, text='Existing Ingredient',variable=self.status_ingredient, onvalue=1, offvalue=0, command=self.checkbox)
+        self.check = tk.Checkbutton(self.left_frame, text='Existing Ingredient',variable=self.status_ingredient, onvalue=1, offvalue=0, command=self.checkbox_ingredient)
         self.check.grid(row=4, column = 0)
 
         self.add_ingredient_frame = tk.Frame(self.left_frame)
-        self.checkbox()
+        self.checkbox_ingredient()
 
         self.ingredient_selected.set(restock_data[1])
         self.entry_restock_quantity.insert('end', restock_data[2])
@@ -396,7 +396,7 @@ class edit_restock(tk.Frame):
             self.stock_data = (self.added_stock, self.ingredient_id[0])
             database.update("Ingredients ", "stock = ?", "Ingredient_id = ?", self.stock_data)
 
-    def checkbox(self):
+    def checkbox_ingredient(self):
         if (self.status_ingredient.get() == 1):
             self.add_ingredient_frame.destroy()
             self.selection_frame = tk.Frame(self.left_frame)

@@ -205,7 +205,6 @@ class display(tk.Frame):
         except sqlite3.IntegrityError:
             tk.messagebox.showerror('Error','Deletion Failed')
 
-
     def export(self):
         current_date_and_time = datetime.datetime.now()
         current_date_and_time_string = str(current_date_and_time)
@@ -258,21 +257,21 @@ class add_order(tk.Frame):
 
         self.status_customer = tk.IntVar()
         self.status_customer.set(1)
-        self.check = tk.Checkbutton(self.left_frame, text='Existing Customer',variable=self.status_customer, onvalue=1, offvalue=0, command=self.checkbox)
+        self.check = tk.Checkbutton(self.left_frame, text='Existing Customer',variable=self.status_customer, onvalue=1, offvalue=0, command=self.checkbox_customer)
         self.check.grid(row=5, column = 0)
 
         self.add_customer_frame = tk.Frame(self.left_frame)
-        self.checkbox()
+        self.checkbox_customer()
 
     def menu_frame(self):
         self.menu_frame = tk.Frame(self)
         self.menu_frame.grid(row=7, columnspan=2)
 
-        self.add_button = tk.Button(self.menu_frame, text="Add", command=lambda: self.add())
-        self.add_button.grid(row = 0, column=1)
+        self.add_button = tk.Button(self.menu_frame, text="Add Orders", command=lambda: self.add())
+        self.add_button.grid(row = 0, column=0)
 
         self.menu_button = tk.Button(self.menu_frame, text="Back", command=lambda: (self.forget(), display()))
-        self.menu_button.grid(row=0, column=2)
+        self.menu_button.grid(row=0, column=1)
 
     def add(self):
         confirmation = tk.messagebox.askquestion('Add Data','Are you sure you want to enter this data')
@@ -285,7 +284,7 @@ class add_order(tk.Frame):
             data = (self.entry_cost.get(), self.entry_payment_method.get(), self.entry_date.get(), self.customer_id[0] , self.entry_discount.get())
             database.insert("Orders ", "(Null,?,?,?,?,?)", data)
 
-    def checkbox(self):
+    def checkbox_customer(self):
         if (self.status_customer.get() == 1):
 
             self.add_customer_frame.destroy()
@@ -376,11 +375,11 @@ class edit_order(tk.Frame):
 
         self.status_customer = tk.IntVar()
         self.status_customer.set(1)
-        self.check = tk.Checkbutton(self.left_frame, text='Existing Customer',variable=self.status_customer, onvalue=1, offvalue=0, command=self.checkbox)
+        self.check = tk.Checkbutton(self.left_frame, text='Existing Customer',variable=self.status_customer, onvalue=1, offvalue=0, command=self.checkbox_customer)
         self.check.grid(row=5, column = 0)
 
         self.add_customer_frame = tk.Frame(self.left_frame)
-        self.checkbox()
+        self.checkbox_customer()
 
         self.entry_date.insert('end', order_data[3])
         self.entry_cost.insert('end', order_data[4])
@@ -412,7 +411,7 @@ class edit_order(tk.Frame):
             data = (self.entry_cost.get(), self.entry_payment_method.get(), self.entry_date.get(), self.customer_id[0] , self.entry_discount.get(), order_data[0])
             database.update("Orders ", "cost = ?, payment_method = ?, date = ?, customer_id = ?, discount = ?", "order_id like ?", data)
 
-    def checkbox(self):
+    def checkbox_customer(self):
         if (self.status_customer.get() == 1):
 
             self.add_customer_frame.destroy()

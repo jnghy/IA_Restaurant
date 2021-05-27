@@ -57,6 +57,7 @@ class display(tk.Frame):
         self.entry_order_details_id = tk.Entry(self.left_frame, width=35,justify='left')
         self.entry_order_details_id.grid(row=0, column=1)
 
+        #gets all existing customers and places it in a option menu
         self.name_fields = []
         for row in database.select('''SELECT DISTINCT last_name || ', ' || first_name
                                     FROM order_details od, orders o, customers c, products p
@@ -200,7 +201,7 @@ class display(tk.Frame):
         current_date_and_time = datetime.datetime.now()
         current_date_and_time_string = str(current_date_and_time)
         extension = ".csv"
-        file_name =  current_date_and_time_string + extension
+        file_name =  "order details " + current_date_and_time_string + extension
         with open(file_name, 'w') as fp:
             csvwriter = csv.writer(fp, delimiter=',')
             csvwriter.writerow(self.fields)
@@ -228,27 +229,27 @@ class add_order_details(tk.Frame):
 
         self.status_order = tk.IntVar()
         self.status_order.set(1)
-        self.check = tk.Checkbutton(self.left_frame, text='Existing Order',variable=self.status_order, onvalue=1, offvalue=0, command=self.checkbox_1)
+        self.check = tk.Checkbutton(self.left_frame, text='Existing Order',variable=self.status_order, onvalue=1, offvalue=0, command=self.order_form)
         self.check.grid(row=0, column = 0, sticky=tk.NW)
 
         self.add_order_frame = tk.Frame(self.left_frame)
 
         self.status_product = tk.IntVar()
         self.status_product.set(1)
-        self.check = tk.Checkbutton(self.left_frame, text='Existing Product',variable=self.status_product, onvalue=1, offvalue=0, command=self.checkbox_2)
+        self.check = tk.Checkbutton(self.left_frame, text='Existing Product',variable=self.status_product, onvalue=1, offvalue=0, command=self.product_form)
         self.check.grid(row=2, column = 0, sticky=tk.NW, )
 
         self.add_product_frame = tk.Frame(self.left_frame)
 
-        self.checkbox_1()
-        self.checkbox_2()
+        self.order_form()
+        self.product_form()
 
         self.label_quantity = tk.Label(self.left_frame,text="Quantity: ", width=15, anchor=tk.W,justify='left')
         self.label_quantity.grid(row=4, column=0, sticky=tk.NW, padx=5)
         self.entry_quantity = tk.Entry(self.left_frame, width=35,justify='left')
         self.entry_quantity.grid(row=4, column=1)
 
-    def checkbox_1(self):
+    def order_form(self):
         if (self.status_order.get() == 1):
             self.add_order_frame.grid_forget()
             self.order_selection_frame = tk.Frame(self.left_frame)
@@ -296,13 +297,13 @@ class add_order_details(tk.Frame):
 
             self.status_customer = tk.IntVar()
             self.status_customer.set(1)
-            self.check = tk.Checkbutton(self.add_order_frame, text='Existing Customer',variable=self.status_customer, onvalue=1, offvalue=0, command=self.checkbox_1_1)
+            self.check = tk.Checkbutton(self.add_order_frame, text='Existing Customer',variable=self.status_customer, onvalue=1, offvalue=0, command=self.customer_form)
             self.check.grid(row=5, column = 0, sticky=tk.NW)
 
             self.add_customer_frame = tk.Frame(self.add_order_frame)
-            self.checkbox_1_1()
+            self.customer_form()
 
-    def checkbox_1_1(self):
+    def customer_form(self):
         if (self.status_customer.get() == 1):
             self.add_customer_frame.destroy()
             self.selection_frame = tk.Frame(self.add_order_frame)
@@ -352,7 +353,7 @@ class add_order_details(tk.Frame):
             self.entry_address = tk.Entry(self.add_customer_frame, width=35,justify='left')
             self.entry_address.grid(row=5, column=1)
 
-    def checkbox_2(self):
+    def product_form(self):
         if (self.status_product.get() == 1):
             self.add_product_frame.grid_forget()
             self.product_selection_frame = tk.Frame(self.left_frame)
@@ -427,6 +428,7 @@ class add_order_details(tk.Frame):
             else:
                 database.insert("Products", "(Null,?,?,?)",(self.entry_product_name.get(),self.entry_price.get(), self.entry_description.get()))
                 self.product_id = database.selectone("SELECT product_id FROM Products where products.name = ?", (self.entry_product_name.get(),))
+
             data = (self.order_id[0],self.product_id[0], self.entry_quantity.get())
             database.insert("Order_details", "(Null,?,?,?)",data)
 
@@ -458,20 +460,20 @@ class edit_order_details(tk.Frame):
 
         self.status_order = tk.IntVar()
         self.status_order.set(1)
-        self.check = tk.Checkbutton(self.left_frame, text='Existing Order',variable=self.status_order, onvalue=1, offvalue=0, command=self.checkbox_1)
+        self.check = tk.Checkbutton(self.left_frame, text='Existing Order',variable=self.status_order, onvalue=1, offvalue=0, command=self.checkbox_order())
         self.check.grid(row=0, column = 0, sticky=tk.NW)
 
         self.add_order_frame = tk.Frame(self.left_frame)
 
         self.status_product = tk.IntVar()
         self.status_product.set(1)
-        self.check = tk.Checkbutton(self.left_frame, text='Existing Product',variable=self.status_product, onvalue=1, offvalue=0, command=self.checkbox_2)
+        self.check = tk.Checkbutton(self.left_frame, text='Existing Product',variable=self.status_product, onvalue=1, offvalue=0, command=self.checkbox_product())
         self.check.grid(row=2, column = 0, sticky=tk.NW, )
 
         self.add_product_frame = tk.Frame(self.left_frame)
 
-        self.checkbox_1()
-        self.checkbox_2()
+        self.checkbox_order()
+        self.checkbox_product()
 
         self.label_quantity = tk.Label(self.left_frame,text="Quantity: ", width=15, anchor=tk.W,justify='left')
         self.label_quantity.grid(row=4, column=0, sticky=tk.NW, padx=5)
@@ -490,7 +492,7 @@ class edit_order_details(tk.Frame):
 
         self.product_selected.set(order_details_data[3])
 
-    def checkbox_1(self):
+    def checkbox_order(self):
         if (self.status_order.get() == 1):
             self.add_order_frame.grid_forget()
             self.order_selection_frame = tk.Frame(self.left_frame)
@@ -538,13 +540,13 @@ class edit_order_details(tk.Frame):
 
             self.status_customer = tk.IntVar()
             self.status_customer.set(1)
-            self.check = tk.Checkbutton(self.add_order_frame, text='Existing Customer',variable=self.status_customer, onvalue=1, offvalue=0, command=self.checkbox_1_1)
+            self.check = tk.Checkbutton(self.add_order_frame, text='Existing Customer',variable=self.status_customer, onvalue=1, offvalue=0, command=self.checkbox_customer)
             self.check.grid(row=5, column = 0, sticky=tk.NW)
 
             self.add_customer_frame = tk.Frame(self.add_order_frame)
-            self.checkbox_1_1()
+            self.checkbox_customer()
 
-    def checkbox_1_1(self):
+    def checkbox_customer(self):
         if (self.status_customer.get() == 1):
             self.add_customer_frame.destroy()
             self.selection_frame = tk.Frame(self.add_order_frame)
@@ -594,7 +596,7 @@ class edit_order_details(tk.Frame):
             self.entry_address = tk.Entry(self.add_customer_frame, width=35,justify='left')
             self.entry_address.grid(row=5, column=1)
 
-    def checkbox_2(self):
+    def checkbox_product(self):
         if (self.status_product.get() == 1):
             self.add_product_frame.grid_forget()
             self.product_selection_frame = tk.Frame(self.left_frame)

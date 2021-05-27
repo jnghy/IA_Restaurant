@@ -7,7 +7,6 @@ import datetime
 import csv
 
 class display(tk.Frame):
-
     def __init__(self):
         super().__init__()
         self.pack()
@@ -277,7 +276,7 @@ class edit_products(tk.Frame):
         self.menu_frame = tk.Frame(self)
         self.menu_frame.grid(row=2, columnspan=2)
 
-        self.add_button = tk.Button(self.menu_frame, text="Edit", command=lambda: self.add())
+        self.add_button = tk.Button(self.menu_frame, text="Edit", command=lambda: self.edit())
         self.add_button.grid(row = 0, column=1)
 
         self.menu_button = tk.Button(self.menu_frame, text="Back", command=lambda: (self.forget(), display()))

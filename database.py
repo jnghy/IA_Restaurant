@@ -195,12 +195,11 @@ def dummy():
 
     #insert dummy data orders
     insert("orders","(Null, 600, 'cash', 2021-04-16, 1, Null)", None)
-    insert("orders","(Null, 925, 'credit card', 2-21-04-17, 7, Null)", None)
-    insert("orders","(Null, 300, 'cash', 2-21-04-17, 4, Null)", None)
-    insert("orders","(Null, 325, 'cash', 2-21-04-18, 2, Null)", None)
-    insert("orders","(Null, 900, 'cash', 2-21-04-19, 3, Null)", None)
-    insert("orders","(Null, 950, 'cash', 2-21-04-27, 8, Null)", None)
-
+    insert("orders","(Null, 925, 'credit card', 2021-03-10, 7, Null)", None)
+    insert("orders","(Null, 300, 'cash', 2021-03-04, 4, Null)", None)
+    insert("orders","(Null, 325, 'cash', 2020-03-01, 2, Null)", None)
+    insert("orders","(Null, 900, 'cash', 2021-04-24, 3, Null)", None)
+    insert("orders","(Null, 950, 'cash', 2021-04-19, 8, Null)", None)
 
 
     #insert dummy data order details
@@ -217,18 +216,3 @@ def dummy():
     insert("delivery","(Null, 5, 25)", None)
     insert("delivery","(Null, 3, 50)", None)
 
-'''
-
-templates
-
-insert("ingredients","(Null, Name, Stock, Defict_Amount, Units)", None)
-insert("products","(Null, Name, Price)", None)
-insert("restocks","(Null, ingredient_id, quantity, total_cost, supplier, date)", None)
-insert("product_details","(Null, ingredient_id, product_id, quantity)", None)
-insert("customers","(Null, last_name, first_name, city, phone_number, address)", None)
-insert("orders","(Null, cost, payment_method, data, customer_id, discount)", None)
-insert("order_details","(Null, order_id, product_id, quantity)", None)
-insert("delivery","(Null, order_id, customer_id, delivery_fee)", None)
-
-
-'''

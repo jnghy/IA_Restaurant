@@ -110,7 +110,7 @@ class display(tk.Frame):
         self.menu_frame = tk.Frame(self)
         self.menu_frame.grid(row=3, columnspan=2)
 
-        self.add_button = tk.Button(self.menu_frame, text="Add", command=lambda: (self.forget(), add_product()))
+        self.add_button = tk.Button(self.menu_frame, text="Add", command=lambda: (self.forget(), add_ingredients()))
         self.add_button.grid(row = 0, column=0)
 
         self.edit_button = tk.Button(self.menu_frame, text="Edit", command=lambda: (self.edit()))
@@ -158,7 +158,7 @@ class display(tk.Frame):
             tk.messagebox.showerror('Error','Select an entry')
         else:
             self.forget()
-            edit_product()
+            edit_ingredients()
 
     def delete(self):
         try:
@@ -186,7 +186,7 @@ class display(tk.Frame):
                 csvwriter.writerow(row)
             tk.messagebox.showinfo("Save to CSV file","File was saved")
 
-class add_product(tk.Frame):
+class add_ingredients(tk.Frame):
     def __init__(self):
         super().__init__()
         self.pack()
@@ -238,7 +238,7 @@ class add_product(tk.Frame):
         if confirmation == 'yes':
             database.insert("Ingredients", "(Null,?,?,?,?)",(self.entry_ingredient_name.get(),self.entry_ingredient_stock.get(), self.entry_ingredient_minimun_stock.get(), self.entry_ingredient_unit.get()))
 
-class edit_product(tk.Frame):
+class edit_ingredients(tk.Frame):
     def __init__(self):
         super().__init__()
         self.pack()

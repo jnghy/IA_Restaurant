@@ -205,7 +205,7 @@ class add_product_details(tk.Frame):
         self.title_frame = tk.Frame(self)
         self.title_frame.grid(row=0,columnspan=2, column=0)
 
-        self.title_text = tk.Label(self.title_frame, text="Add Product_Details", pady=30, font=("Lucida Grande", 20, 'bold'))
+        self.title_text = tk.Label(self.title_frame, text="Add Product Details", pady=30, font=("Lucida Grande", 20, 'bold'))
         self.title_text.grid(columnspan=2)
 
         self.display_frame()
@@ -343,7 +343,6 @@ class add_product_details(tk.Frame):
             self.label_description.grid(row=4, column=0, sticky=tk.NW, padx=5)
             self.entry_description = tk.Entry(self.add_product_frame, width=35,justify='left')
             self.entry_description.grid(row=4, column=1)
-
 
 class edit_product_details(tk.Frame):
     def __init__(self):

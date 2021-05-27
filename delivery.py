@@ -15,7 +15,7 @@ class display(tk.Frame):
         self.title_frame = tk.Frame(self)
         self.title_frame.grid(row=0,columnspan=2, column=0)
 
-        self.title_text = tk.Label(self.title_frame, text="Order Details Display", pady=30, font=("Lucida Grande", 20, 'bold'))
+        self.title_text = tk.Label(self.title_frame, text="Delivery Display", pady=30, font=("Lucida Grande", 20, 'bold'))
         self.title_text.grid(columnspan=2)
 
         self.navigation_frame()
@@ -129,7 +129,7 @@ class display(tk.Frame):
         self.menu_frame = tk.Frame(self)
         self.menu_frame.grid(row=3, columnspan=2)
 
-        self.add_button = tk.Button(self.menu_frame, text="Add", command=lambda: (self.forget(), add_order_details()))
+        self.add_button = tk.Button(self.menu_frame, text="Add", command=lambda: (self.forget(), add_delivery()))
         self.add_button.grid(row = 0, column=0)
 
         self.edit_button = tk.Button(self.menu_frame, text="Edit", command=lambda: (self.edit()))
@@ -181,7 +181,7 @@ class display(tk.Frame):
             tk.messagebox.showerror('Error','Select an entry')
         else:
             self.forget()
-            edit_order_details()
+            edit_delivery()
 
     def delete(self):
         try:
@@ -209,14 +209,14 @@ class display(tk.Frame):
                 csvwriter.writerow(row)
             tk.messagebox.showinfo("Save to CSV file","File was saved")
 
-class add_order_details(tk.Frame):
+class add_delivery(tk.Frame):
     def __init__(self):
         super().__init__()
         self.pack()
         self.title_frame = tk.Frame(self)
         self.title_frame.grid(row=0,columnspan=2, column=0)
 
-        self.title_text = tk.Label(self.title_frame, text="Add Order Details", pady=30, font=("Lucida Grande", 20, 'bold'))
+        self.title_text = tk.Label(self.title_frame, text="Add Delivery", pady=30, font=("Lucida Grande", 20, 'bold'))
         self.title_text.grid(columnspan=2)
 
         self.display_frame()
@@ -228,19 +228,19 @@ class add_order_details(tk.Frame):
 
         self.status_order = tk.IntVar()
         self.status_order.set(1)
-        self.check = tk.Checkbutton(self.left_frame, text='Existing Order',variable=self.status_order, onvalue=1, offvalue=0, command=self.checkbox_1)
+        self.check = tk.Checkbutton(self.left_frame, text='Existing Order',variable=self.status_order, onvalue=1, offvalue=0, command=self.checkbox_order())
         self.check.grid(row=0, column = 0, sticky=tk.NW)
 
         self.add_order_frame = tk.Frame(self.left_frame)
 
-        self.checkbox_1()
+        self.checkbox_order()
 
         self.label_fee = tk.Label(self.left_frame,text="Delivery Fee: ", width=15, anchor=tk.W,justify='left')
         self.label_fee.grid(row=4, column=0, sticky=tk.NW, padx=5)
         self.entry_fee = tk.Entry(self.left_frame, width=35,justify='left')
         self.entry_fee.grid(row=4, column=1)
 
-    def checkbox_1(self):
+    def checkbox_order(self):
         if (self.status_order.get() == 1):
             self.add_order_frame.grid_forget()
             self.order_selection_frame = tk.Frame(self.left_frame)
@@ -288,13 +288,13 @@ class add_order_details(tk.Frame):
 
             self.status_customer = tk.IntVar()
             self.status_customer.set(1)
-            self.check = tk.Checkbutton(self.add_order_frame, text='Existing Customer',variable=self.status_customer, onvalue=1, offvalue=0, command=self.checkbox_1_1)
+            self.check = tk.Checkbutton(self.add_order_frame, text='Existing Customer',variable=self.status_customer, onvalue=1, offvalue=0, command=self.checkbox_customer())
             self.check.grid(row=5, column = 0, sticky=tk.NW)
 
             self.add_customer_frame = tk.Frame(self.add_order_frame)
-            self.checkbox_1_1()
+            self.checkbox_customer()
 
-    def checkbox_1_1(self):
+    def checkbox_customer(self):
         if (self.status_customer.get() == 1):
             self.add_customer_frame.destroy()
             self.selection_frame = tk.Frame(self.add_order_frame)
@@ -378,7 +378,7 @@ class add_order_details(tk.Frame):
             data = (self.order_id[0], self.entry_fee.get())
             database.insert("Delivery", "(Null,?,?)",data)
 
-class edit_order_details(tk.Frame):
+class edit_delivery(tk.Frame):
     def __init__(self):
         super().__init__()
         self.pack()
@@ -397,18 +397,17 @@ class edit_order_details(tk.Frame):
 
         self.status_order = tk.IntVar()
         self.status_order.set(1)
-        self.check = tk.Checkbutton(self.left_frame, text='Existing Order',variable=self.status_order, onvalue=1, offvalue=0, command=self.checkbox_1)
+        self.check = tk.Checkbutton(self.left_frame, text='Existing Order',variable=self.status_order, onvalue=1, offvalue=0, command=self.checkbox_order())
         self.check.grid(row=0, column = 0, sticky=tk.NW)
 
         self.add_order_frame = tk.Frame(self.left_frame)
 
-        self.checkbox_1()
+        self.checkbox_customer()
 
         self.label_fee = tk.Label(self.left_frame,text="Delivery Fee: ", width=15, anchor=tk.W,justify='left')
         self.label_fee.grid(row=4, column=0, sticky=tk.NW, padx=5)
         self.entry_fee = tk.Entry(self.left_frame, width=35,justify='left')
         self.entry_fee.grid(row=4, column=1)
-
 
         self.entry_fee.insert('end',delivery_data[5])
 
@@ -420,8 +419,7 @@ class edit_order_details(tk.Frame):
                                                     WHERE name = ?
                                                     AND date = ?''', (delivery_data[1],delivery_data[4]))[0])
 
-
-    def checkbox_1(self):
+    def checkbox_order(self):
         if (self.status_order.get() == 1):
             self.add_order_frame.grid_forget()
             self.order_selection_frame = tk.Frame(self.left_frame)
@@ -469,13 +467,13 @@ class edit_order_details(tk.Frame):
 
             self.status_customer = tk.IntVar()
             self.status_customer.set(1)
-            self.check = tk.Checkbutton(self.add_order_frame, text='Existing Customer',variable=self.status_customer, onvalue=1, offvalue=0, command=self.checkbox_1_1)
+            self.check = tk.Checkbutton(self.add_order_frame, text='Existing Customer',variable=self.status_customer, onvalue=1, offvalue=0, command=self.checkbox_customer())
             self.check.grid(row=5, column = 0, sticky=tk.NW)
 
             self.add_customer_frame = tk.Frame(self.add_order_frame)
-            self.checkbox_1_1()
+            self.checkbox_customer()
 
-    def checkbox_1_1(self):
+    def checkbox_customer(self):
         if (self.status_customer.get() == 1):
             self.add_customer_frame.destroy()
             self.selection_frame = tk.Frame(self.add_order_frame)
@@ -524,7 +522,6 @@ class edit_order_details(tk.Frame):
             self.label_address.grid(row=5, column=0, sticky=tk.NW, padx=5)
             self.entry_address = tk.Entry(self.add_customer_frame, width=35,justify='left')
             self.entry_address.grid(row=5, column=1)
-
 
     def menu_frame(self):
         self.menu_frame = tk.Frame(self)
